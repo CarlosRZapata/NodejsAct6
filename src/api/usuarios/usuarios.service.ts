@@ -4,14 +4,14 @@ import { User } from '../usuarios/usuarios.interface';
 
 export class UserService {
 
-    static async getUserById(userId: string): Promise<User | undefined> {
-        return new Promise<User>((resolve, reject) => {
-            const query = `SELECT * FROM usuarios WHERE id = ?`;
+    static async getUserById(userId: string): Promise<User[] | undefined> {
+        return new Promise<User[]>((resolve, reject) => {
+            const query = `SELECT * FROM usuarios WHERE ID_Usuario = ?`;
             connection.query(query, [userId], (error, results) => {
                 if (error) {
                     reject(error);
                 } else {
-                    resolve(results[0]);
+                    resolve(results);
                 }
             });
         });
@@ -30,7 +30,7 @@ export class UserService {
         });
     }
 
-    static async createUser(userData: Omit<User, 'id_user'>): Promise<User> {
+    static async createUser(userData: Omit<User, 'ID_Usuario'>): Promise<User> {
         return new Promise<User>((resolve, reject) => {
             const query = `INSERT INTO usuarios SET ?`;
             connection.query(query, userData, (error, results) => {
@@ -38,7 +38,7 @@ export class UserService {
                     reject(error);
                 } else {
                     const insertedId = results.insertId;
-                    resolve({ id_user: insertedId, ...userData });
+                    resolve({ ID_Usuario: insertedId, ...userData });
                 }
             });
         });
