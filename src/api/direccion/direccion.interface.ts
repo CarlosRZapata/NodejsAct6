@@ -2,6 +2,7 @@ export interface Direction {
     ID_Direccion: number;
     Codigo_Postal: number;
     Calle: string;
+    Colonia: string;
     Num_Exterior: string;
     Num_Interior: string;
     Ciudad: string;
